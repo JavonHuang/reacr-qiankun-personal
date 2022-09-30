@@ -1,0 +1,53 @@
+.portal{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  .portal-right{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .portal-context{
+      margin: 8px 10px;
+      height: 100%;
+      overflow: auto;
+      background: white;
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+  }
+}
+
+.left-side{
+  height: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  .left-logo{
+    height: 48px;
+    background: #1890ff;
+    text-align: center;
+    line-height: 48px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .left-menu{
+    height: calc(100% - 48px);
+    overflow-y: auto;
+    box-shadow: 0px 0px 5px #cdcdcd;
+  }
+  .ant-menu{
+    height: 100%;
+  }
+}
+
+.top-header{
+  height: 48px;
+  line-height:  48px;
+  padding: 0 8px;
+  box-sizing:border-box;
+  font-size: 14px;
+  box-shadow: 0px 0px 5px #cdcdcd;
+  background: white;
+}
