@@ -8,7 +8,6 @@ module.exports = {
 
     return config;
   },
-  publicPath: './',
   devServer: (_) => {
     const config = _;
 

@@ -1,15 +1,17 @@
 import { useRoutes } from "react-router-dom";
 import { Suspense, lazy } from 'react'
+import Login from "./../page/login/Login";
+import Home from "../page/home/Home";
 const routes = [
   {
     path: '/',
     auth:false,
-    component:lazy(() => import('./../page/login/Login'))
+    component:<Login></Login>,
   },
   { 
     path: '/home',
     auth:true,
-    component:lazy(() => import('../page/home/Home'))
+    component:<Home></Home>
   },
   // { path: '/Portal/Test',
   //   auth:true,
@@ -75,13 +77,14 @@ const generateRouter = (routers:any,mainRouterPath:string) => {
     if (item.children) {
       item.children = generateRouter(item.children,mainRouterPath)
     }
-    item.path=`${mainRouterPath}${item.path}`
-    item.element = <Suspense fallback={
-      <div>加载中...</div>
-    }>
-      {/* 把懒加载的异步路由变成组件装载进去 */}
-      <item.component />
-    </Suspense>
+    item.path = `${mainRouterPath}${item.path}`
+    item.element=item.component
+    // item.element = <Suspense fallback={
+    //   <div>加载中...</div>
+    // }>
+    //   {/* 把懒加载的异步路由变成组件装载进去 */}
+    //   <item.component />
+    // </Suspense>
     return item
   })
 }
