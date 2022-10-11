@@ -4,9 +4,9 @@ import './index.css';
 import App from "./app";
 
 function render(props:any) {
-  const { container } = props;
+  const { mainRouterPath='' } = props;
   ReactDOM.render(
-    <App>
+    <App mainRouterPath={mainRouterPath}>
     </App>,
     document.getElementById('root')
   );
@@ -17,11 +17,11 @@ if (!window.__POWERED_BY_QIANKUN__) {
 }
 
 export async function bootstrap() {
-  console.log('[react16] react app bootstraped');
+  console.log('[react17] react app bootstraped');
 }
 
 export async function mount(props:any) {
-  console.log('[react16] props from main framework', props);
+  console.log('[react17] props from main framework', props);
   render(props);
 }
 

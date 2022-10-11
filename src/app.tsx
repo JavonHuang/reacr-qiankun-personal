@@ -4,10 +4,10 @@ import 'antd/dist/antd.min.css';
 import './index.css';
 import { Router } from './routes/index'
 
-const App = (props:any)=>{
+const App: React.FC<IAPP> = (props)=>{
   return(
     <HashRouter>
-    <Router/>
+      <Router {...props} />
   </HashRouter>
   )
 }

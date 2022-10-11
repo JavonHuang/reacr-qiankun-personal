@@ -7,53 +7,53 @@ const routes = [
     component:lazy(() => import('./../page/login/Login'))
   },
   { 
-    path: '/Portal/Home',
+    path: '/home',
     auth:true,
     component:lazy(() => import('../page/home/Home'))
   },
-  { path: '/Portal/Test',
-    auth:true,
-    component:lazy(() => import('../page/test/Test'))
-  },
-  { path: '/Portal/lifecycle',
-    auth:true,
-    component:lazy(() => import('../page/lifecycle/lifecycle'))
-  },
-  { path: '/Portal/useContextTest',
-    auth:true,
-    component:lazy(() => import('../page/useContextTest/index'))
-  },
-  { path: '/Portal/useDiy',
-    auth:true,
-    component:lazy(() => import('../page/useDiy/index'))
-  },
-  { path: '/Portal/useReducer',
-    auth:true,
-    component:lazy(() => import('../page/useReducer/index'))
-  },
-  { path: '/Portal/useCallback',
-    auth:true,
-    component:lazy(() => import('../page/useCallback/index'))
-  },
-  { path: '/Portal/useMemo',
-    auth:true,
-    component:lazy(() => import('../page/useMemo/index'))
-  },
-  { 
-    path: '/Portal/*',
-    auth:false,
-    component:lazy(() => import('../page/error/NotFound'))
-  },
-  {
-    path: '*',
-    auth:false,
-    component:lazy(() => import('../page/error/NotFound'))
-  },
-  { 
-    path: '/redirect',
-    auth:false,
-    component: lazy(() => import('../page/Redirect/Redirect')),
-  }
+  // { path: '/Portal/Test',
+  //   auth:true,
+  //   component:lazy(() => import('../page/test/Test'))
+  // },
+  // { path: '/Portal/lifecycle',
+  //   auth:true,
+  //   component:lazy(() => import('../page/lifecycle/lifecycle'))
+  // },
+  // { path: '/Portal/useContextTest',
+  //   auth:true,
+  //   component:lazy(() => import('../page/useContextTest/index'))
+  // },
+  // { path: '/Portal/useDiy',
+  //   auth:true,
+  //   component:lazy(() => import('../page/useDiy/index'))
+  // },
+  // { path: '/Portal/useReducer',
+  //   auth:true,
+  //   component:lazy(() => import('../page/useReducer/index'))
+  // },
+  // { path: '/Portal/useCallback',
+  //   auth:true,
+  //   component:lazy(() => import('../page/useCallback/index'))
+  // },
+  // { path: '/Portal/useMemo',
+  //   auth:true,
+  //   component:lazy(() => import('../page/useMemo/index'))
+  // },
+  // { 
+  //   path: '/Portal/*',
+  //   auth:false,
+  //   component:lazy(() => import('../page/error/NotFound'))
+  // },
+  // {
+  //   path: '*',
+  //   auth:false,
+  //   component:lazy(() => import('../page/error/NotFound'))
+  // },
+  // { 
+  //   path: '/redirect',
+  //   auth:false,
+  //   component: lazy(() => import('../page/Redirect/Redirect')),
+  // }
 ]
 
 
@@ -70,11 +70,12 @@ const checkAuth = (routers:any, path:String)=>{
 }
 
 // 路由处理方式
-const generateRouter = (routers:any) => {
+const generateRouter = (routers:any,mainRouterPath:string) => {
   return routers.map((item:any) => {
     if (item.children) {
-      item.children = generateRouter(item.children)
+      item.children = generateRouter(item.children,mainRouterPath)
     }
+    item.path=`${mainRouterPath}${item.path}`
     item.element = <Suspense fallback={
       <div>加载中...</div>
     }>
@@ -85,7 +86,7 @@ const generateRouter = (routers:any) => {
   })
 }
 
-const Router = () => useRoutes(generateRouter(routes))
+const Router : React.FC<IAPP>= (props) => useRoutes(generateRouter(routes,props.mainRouterPath))
 const checkRouterAuth = (path:String)=>{
   let auth = null
   auth = checkAuth(routes,path)
