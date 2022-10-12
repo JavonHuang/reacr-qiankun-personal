@@ -1,32 +1,38 @@
 import { useRoutes } from "react-router-dom";
-import { Suspense, lazy } from 'react'
-import Login from "./../page/login/Login";
+// import { Suspense, lazy } from 'react'
+// import Portal from "../page/portal/Portal";
+import RouterBeforeEach from './../routes/RouterBeforeEach'
 import Home from "../page/home/Home";
+import Test from "../page/test/Test";
 import NotFound from "../page/error/NotFound";
-const routes =()=> [
-  {
+
+let mainRouterPath = '';
+let errorRouter = '';
+const routes = () => {
+  let routerObj ={
     path: '/',
-    auth:false,
-    name: '/',
-    component:<Login></Login>,
-  },
-  { 
-    path: '/home',
-    name: 'home',
-    auth:true,
-    component:<Home></Home>
-  },
-  { 
-    path: '/home',
-    auth:true,
-    component:lazy(() => import('../page/home/Home'))
-  },
-  {
-    path: '*',
-    auth:false,
-    component:<NotFound></NotFound>
-  },
-]
+    auth: true,
+    component: <RouterBeforeEach />,
+    children: [
+      {
+        path: '/home',
+        auth: true,
+        component: <Home></Home>
+      },
+      {
+        path: '/test',
+        auth:true,
+        component:<Test></Test>
+      },
+      {
+        path: '/*',
+        auth: false,
+        component: <NotFound></NotFound>
+      }
+    ]
+  };
+  return [routerObj]; 
+}
 
 
 
@@ -48,6 +54,29 @@ const generateRouter = (routers:any,mainRouterPath:string) => {
   })
 }
 
-const Router : React.FC<IAPP>= (props) => useRoutes(generateRouter(routes(),props.mainRouterPath))
+const Router: React.FC<IAPP> = (props) => { 
+  mainRouterPath = props.mainRouterPath;
+  errorRouter= props.errorRouter;
+  return useRoutes(generateRouter(routes(),mainRouterPath));
+}
 
-export{ Router}
+//根据路径获取路由
+const findRouter = (routers:any, path:String)=>{
+  for (const data of routers) {
+    if ( `${mainRouterPath}${data.path}`===path) return data
+    if (data.children) {
+      const res:any = findRouter(data.children, path)
+      if (res) return res
+    }
+  }
+  return null
+}
+
+const checkRouter = (path:String)=>{
+  let auth = null
+  auth = findRouter(routes(),path)
+  return auth
+}
+
+const getErrorRouter = () => errorRouter;
+export{ Router,checkRouter,getErrorRouter}

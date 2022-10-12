@@ -4,9 +4,9 @@ import './index.css';
 import App from "./app";
 
 function render(props:any) {
-  const { mainRouterPath='' } = props;
+  const { mainRouterPath='',errorRouter='' } = props;
   ReactDOM.render(
-    <App mainRouterPath={mainRouterPath}>
+    <App mainRouterPath={mainRouterPath} errorRouter={ errorRouter}>
     </App>,
     document.getElementById('root')
   );
