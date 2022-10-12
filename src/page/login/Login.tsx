@@ -5,7 +5,7 @@ const Login =(props:any)=>{
   const navigate = useNavigate()
   const handleClick = ()=>{
     sessionStorage.setItem('login','true')
-    navigate('/Portal/Home')
+    navigate('/home')
   }
   
   return (

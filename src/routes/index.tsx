@@ -2,74 +2,33 @@ import { useRoutes } from "react-router-dom";
 import { Suspense, lazy } from 'react'
 import Login from "./../page/login/Login";
 import Home from "../page/home/Home";
-const routes = [
+import NotFound from "../page/error/NotFound";
+const routes =()=> [
   {
     path: '/',
     auth:false,
+    name: '/',
     component:<Login></Login>,
   },
   { 
     path: '/home',
+    name: 'home',
     auth:true,
     component:<Home></Home>
   },
-  // { path: '/Portal/Test',
-  //   auth:true,
-  //   component:lazy(() => import('../page/test/Test'))
-  // },
-  // { path: '/Portal/lifecycle',
-  //   auth:true,
-  //   component:lazy(() => import('../page/lifecycle/lifecycle'))
-  // },
-  // { path: '/Portal/useContextTest',
-  //   auth:true,
-  //   component:lazy(() => import('../page/useContextTest/index'))
-  // },
-  // { path: '/Portal/useDiy',
-  //   auth:true,
-  //   component:lazy(() => import('../page/useDiy/index'))
-  // },
-  // { path: '/Portal/useReducer',
-  //   auth:true,
-  //   component:lazy(() => import('../page/useReducer/index'))
-  // },
-  // { path: '/Portal/useCallback',
-  //   auth:true,
-  //   component:lazy(() => import('../page/useCallback/index'))
-  // },
-  // { path: '/Portal/useMemo',
-  //   auth:true,
-  //   component:lazy(() => import('../page/useMemo/index'))
-  // },
-  // { 
-  //   path: '/Portal/*',
-  //   auth:false,
-  //   component:lazy(() => import('../page/error/NotFound'))
-  // },
-  // {
-  //   path: '*',
-  //   auth:false,
-  //   component:lazy(() => import('../page/error/NotFound'))
-  // },
-  // { 
-  //   path: '/redirect',
-  //   auth:false,
-  //   component: lazy(() => import('../page/Redirect/Redirect')),
-  // }
+  { 
+    path: '/home',
+    auth:true,
+    component:lazy(() => import('../page/home/Home'))
+  },
+  {
+    path: '*',
+    auth:false,
+    component:<NotFound></NotFound>
+  },
 ]
 
 
-//根据路径获取路由
-const checkAuth = (routers:any, path:String)=>{
-  for (const data of routers) {
-    if (data.path===path) return data
-    if (data.children) {
-      const res:any = checkAuth(data.children, path)
-      if (res) return res
-    }
-  }
-  return null
-}
 
 // 路由处理方式
 const generateRouter = (routers:any,mainRouterPath:string) => {
@@ -89,10 +48,6 @@ const generateRouter = (routers:any,mainRouterPath:string) => {
   })
 }
 
-const Router : React.FC<IAPP>= (props) => useRoutes(generateRouter(routes,props.mainRouterPath))
-const checkRouterAuth = (path:String)=>{
-  let auth = null
-  auth = checkAuth(routes,path)
-  return auth
-}
-export{ Router,checkRouterAuth}
+const Router : React.FC<IAPP>= (props) => useRoutes(generateRouter(routes(),props.mainRouterPath))
+
+export{ Router}
