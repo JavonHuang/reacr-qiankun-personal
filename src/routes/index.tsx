@@ -3,6 +3,12 @@ import { useRoutes } from "react-router-dom";
 // import Portal from "../page/portal/Portal";
 import RouterBeforeEach from './../routes/RouterBeforeEach'
 import Home from "../page/home/Home";
+import VueComponent from "../page/vueComponent/vueComponent";
+import Lifecycle from "./../page/lifecycle/lifecycle";
+import UseContextTest from "./../page/useContextTest/index";
+import UseDiy from "./../page/useDiy/index";
+import UseMemoTest from "./../page/useMemo/index";
+import UseReducerTest from "./../page/useReducer/index"
 import Test from "../page/test/Test";
 import NotFound from "../page/error/NotFound";
 
@@ -18,6 +24,36 @@ const routes = () => {
         path: '/home',
         auth: true,
         component: <Home></Home>
+      },
+      {
+        path: '/VueComponent',
+        auth: true,
+        component: <VueComponent></VueComponent>
+      },
+      {
+        path: '/lifecycle',
+        auth: true,
+        component: <Lifecycle></Lifecycle>
+      },
+      {
+        path: '/useContextTest',
+        auth: true,
+        component: <UseContextTest></UseContextTest>
+      },
+      {
+        path: '/useDiy',
+        auth: true,
+        component: <UseDiy></UseDiy>
+      },
+      {
+        path: '/useMemoTest',
+        auth: true,
+        component: <UseMemoTest></UseMemoTest>
+      },
+      {
+        path: '/useReducerTest',
+        auth: true,
+        component: <UseReducerTest></UseReducerTest>
       },
       {
         path: '/test',

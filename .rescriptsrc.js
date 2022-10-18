@@ -15,7 +15,7 @@ module.exports = {
       'Access-Control-Allow-Origin': '*',
     };
     config.historyApiFallback = true;
-    config.hot = false;
+    config.hot = true;
     config.static.watch = false;
     config.liveReload = false;
 

@@ -1,10 +1,11 @@
-import {useNavigate,useLocation } from "react-router-dom";
+import {useNavigate,useLocation,useSearchParams } from "react-router-dom";
 import { Outlet } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {checkRouter,getErrorRouter} from './index'
 const RouterBeforeEach = ()=>{
   const navigate = useNavigate()
   const location = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [check,setCheck] = useState(false)
   useEffect(() => {
     let obj = checkRouter(location.pathname)

@@ -7,5 +7,8 @@ declare global {  //设置全局属性
     mainRouterPath: string;   //主应用路由前缀
     errorRouter: string;   //主应用错误路由
   }
+
+  export interface Vue {  //window对象属性
+  }
 }
 export {}

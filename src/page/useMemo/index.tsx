@@ -1,6 +1,6 @@
-import React, { useState,useMemo,useEffect} from 'react'
+import  { useState,useMemo} from 'react'
 
-export default function App() {
+export default function UseMemoTest() {
   let [count, setConut] = useState(0);
   let [name, setName] = useState<string>('Javon');
   const testclick = () => { 
@@ -29,11 +29,10 @@ const Child = (props: any) => {
 
 	const getRichChild = () => {
 		console.log('rich child');
-		return 'Child依赖name：'+props.count;
+    return <>Child依赖name：{ props.count}</>;
 	}
  
   const richChild = useMemo(() => {
-
 		//执行相应的函数
 		return getRichChild();
 	}, [props.name]);

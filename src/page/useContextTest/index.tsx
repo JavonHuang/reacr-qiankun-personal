@@ -12,7 +12,7 @@ const themes = {
 
 const ThemeContext = React.createContext(themes.light);
 
-export default function App() {
+export default function UseContextTest() {
   const [_themes, setThemes] = useState(themes.dark);
   const change = () => {
     if (_themes === themes.light) {

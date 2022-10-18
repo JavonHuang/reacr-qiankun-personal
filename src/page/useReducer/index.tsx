@@ -13,7 +13,7 @@ function reducer(state: any, action: any) {
   }
 }
 
-export default function Counter() {
+export default function UseReducerTest() {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
     <>

@@ -20,7 +20,7 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "rescripts start",
+    "dev": "rescripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
